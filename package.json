@@ -1,0 +1,24 @@
+{
+  "name": "pencil-kata",
+  "version": "1.0.0",
+  "description": "Kata for Pillar Technologies",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "eslint .",
+    "pretest": "eslint .",
+    "test": "mocha"
+  },
+  "author": "Jonathon Mroczka",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "4.17.11"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "eslint": "5.9.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "mocha": "5.2.0",
+    "sinon": "7.1.1"
+  }
+}
