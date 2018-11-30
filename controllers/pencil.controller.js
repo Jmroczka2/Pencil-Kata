@@ -9,7 +9,7 @@ function write(paper, textToWrite) {
     return newPaper;
   }
   if (paper.slice(-1) === ' ' && textToWrite.slice(0, 1) === ' ') {
-    newPaper = paper.slice(0, -1) + textToWrite;
+    newPaper = `${paper.trim()} ${textToWrite.trim()}`;
     return newPaper;
   }
   newPaper = paper + textToWrite;
