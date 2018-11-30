@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint .",
     "pretest": "eslint .",
-    "test": "mocha"
+    "test": "mocha \"tests/**/*.test.js\""
   },
   "author": "Jonathon Mroczka",
   "license": "ISC",
