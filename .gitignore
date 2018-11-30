@@ -1,5 +1,8 @@
 # Standard .gitignore file for Node.js from https://github.com/github/gitignore/blob/master/Node.gitignore
 
+# I added this line for ease of developing.
+package-lock.json
+
 # Logs
 logs
 *.log
