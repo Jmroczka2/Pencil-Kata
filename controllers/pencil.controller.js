@@ -1,4 +1,33 @@
+/* eslint-disable no-useless-escape */
 const Pencil = require('../classes/pencil.class.js');
+
+function determineRemainingPointAndWriteableText(point, textToWrite) {
+  const numberOfUpperCaseChars = (textToWrite.match(/[A-Z]/g) || []).length;
+  const numberOfSpecialAndLowerCaseChars = (textToWrite.match(/[a-z0-9,.?!;:=+\-_@#$%^&*~(){}\\\/\[\]]/g) || []).length;
+  const totalWriteLength = numberOfSpecialAndLowerCaseChars + (numberOfUpperCaseChars * 2);
+  const remainingPoint = point - totalWriteLength;
+
+  let writeableText = '';
+  if (remainingPoint >= 0) {
+    writeableText = textToWrite;
+    return { remainingPoint, writeableText };
+  }
+
+  for (let i = 0, charactersWritten = 0; point - charactersWritten > 0; i += 1) {
+    if (textToWrite.charAt(i) === ' ') {
+      writeableText += textToWrite.charAt(i);
+    }
+    if ((textToWrite.charAt(i).match(/[A-Z]/g) || []).length === 1) {
+      writeableText += textToWrite.charAt(i);
+      charactersWritten += 2;
+    }
+    if ((textToWrite.charAt(i).match(/[a-z0-9,.?!;:=+\-_@#$%^&*~(){}\\\/\[\]]/g) || []).length) {
+      writeableText += textToWrite.charAt(i);
+      charactersWritten += 1;
+    }
+  }
+  return { writeableText, remainingPoint };
+}
 
 const PencilController = {
 
@@ -12,19 +41,26 @@ const PencilController = {
     if (this.pencil.point <= 0) {
       return paper;
     }
+    const {
+      writeableText,
+      remainingPoint,
+    } = determineRemainingPointAndWriteableText(this.pencil.point, textToWrite);
+
+    this.pencil.point = remainingPoint;
+
     if (typeof paper !== 'string') {
-      return textToWrite;
+      return writeableText;
     }
     let newPaper;
-    if (paper.slice(-1) !== ' ' && textToWrite.slice(0, 1) !== ' ') {
-      newPaper = `${paper} ${textToWrite}`;
+    if (paper.slice(-1) !== ' ' && writeableText.slice(0, 1) !== ' ') {
+      newPaper = `${paper} ${writeableText}`;
       return newPaper;
     }
-    if (paper.slice(-1) === ' ' && textToWrite.slice(0, 1) === ' ') {
-      newPaper = `${paper.trim()} ${textToWrite.trim()}`;
+    if (paper.slice(-1) === ' ' && writeableText.slice(0, 1) === ' ') {
+      newPaper = `${paper.trim()} ${writeableText.trim()}`;
       return newPaper;
     }
-    newPaper = paper + textToWrite;
+    newPaper = paper + writeableText;
     return newPaper;
   },
 };
