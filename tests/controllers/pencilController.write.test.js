@@ -10,7 +10,7 @@ const VALID_WRITE_RESULT = 'Boy, do I love me some bacon! What food do you like 
 
 describe('Pencil Controller', function () {
   describe('.write()', function () {
-    this.beforeEach(function () {
+    beforeEach(function () {
       PencilController.newPencil();
     });
 
@@ -65,11 +65,10 @@ describe('Pencil Controller', function () {
 
     describe('pencil point degradation tests', function () {
       describe('but the pencil has no point left', function () {
-        before(function () {
+        beforeEach(function () {
           PencilController.pencil.point = 0;
         });
         it('should write nothing to the paper', function () {
-          PencilController.pencil.point = 0;
           const newPaper = PencilController.write(VALID_PAPER_STRING, VALID_WRITEABLE_STRING);
           expect(newPaper).to.equal(VALID_PAPER_STRING);
         });
