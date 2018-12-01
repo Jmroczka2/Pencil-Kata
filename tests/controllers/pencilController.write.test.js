@@ -10,13 +10,26 @@ const VALID_WRITE_RESULT = 'Boy, do I love me some bacon! What food do you like 
 
 describe('Pencil Controller', function () {
   describe('.write()', function () {
-    describe('if a valid paper is passed', function () {
-      it('should append text to a valid paper string', function () {
-        const newPaper = PencilController.write(VALID_PAPER_STRING, VALID_WRITEABLE_STRING);
-        expect(newPaper).to.equal(VALID_WRITE_RESULT);
+    describe('validity tests', function () {
+      describe('if a valid paper is passed', function () {
+        it('should append text to a valid paper string', function () {
+          const newPaper = PencilController.write(VALID_PAPER_STRING, VALID_WRITEABLE_STRING);
+          expect(newPaper).to.equal(VALID_WRITE_RESULT);
+        });
       });
 
-      describe('but is missing whitespace', function () {
+      describe('if an invalid paper is passed', function () {
+        it('should create a new paper and return the paper with the new text on it', function () {
+          const newPaperNull = PencilController.write(null, VALID_WRITEABLE_STRING);
+          const newPaperInteger = PencilController.write(2, VALID_WRITEABLE_STRING);
+          expect(newPaperNull).to.equal(VALID_WRITEABLE_STRING);
+          expect(newPaperInteger).to.equal(VALID_WRITEABLE_STRING);
+        });
+      });
+    });
+
+    describe('whitespace tests for paper and new text', function () {
+      describe('but the paper is missing whitespace', function () {
         it('should add whitespace to the paper in addition to new text to avoid errors', function () {
           const newPaper = PencilController.write(
             VALID_PAPER_STRING, VALID_WRITEABLE_STRING_MISSING_WHITESPACE,
@@ -43,15 +56,6 @@ describe('Pencil Controller', function () {
           );
           expect(newPaper).to.equal(VALID_WRITE_RESULT);
         });
-      });
-    });
-
-    describe('if an invalid paper is passed', function () {
-      it('should create a new paper and return the paper with the new text on it', function () {
-        const newPaperNull = PencilController.write(null, VALID_WRITEABLE_STRING);
-        const newPaperInteger = PencilController.write(2, VALID_WRITEABLE_STRING);
-        expect(newPaperNull).to.equal(VALID_WRITEABLE_STRING);
-        expect(newPaperInteger).to.equal(VALID_WRITEABLE_STRING);
       });
     });
   });
