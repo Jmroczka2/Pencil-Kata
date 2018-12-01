@@ -10,6 +10,10 @@ const VALID_WRITE_RESULT = 'Boy, do I love me some bacon! What food do you like 
 
 describe('Pencil Controller', function () {
   describe('.write()', function () {
+    this.beforeEach(function () {
+      PencilController.newPencil();
+    });
+
     describe('validity tests', function () {
       describe('if a valid paper is passed', function () {
         it('should append text to a valid paper string', function () {
@@ -55,6 +59,19 @@ describe('Pencil Controller', function () {
             validPaperWithExtraWhitespace, VALID_WRITEABLE_STRING,
           );
           expect(newPaper).to.equal(VALID_WRITE_RESULT);
+        });
+      });
+    });
+
+    describe('pencil point degradation tests', function () {
+      describe('but the pencil has no point left', function () {
+        before(function () {
+          PencilController.pencil.point = 0;
+        });
+        it('should write nothing to the paper', function () {
+          PencilController.pencil.point = 0;
+          const newPaper = PencilController.write(VALID_PAPER_STRING, VALID_WRITEABLE_STRING);
+          expect(newPaper).to.equal(VALID_PAPER_STRING);
         });
       });
     });
