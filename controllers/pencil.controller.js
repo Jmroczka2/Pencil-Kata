@@ -31,10 +31,10 @@ function determineRemainingPointAndWriteableText(point, textToWrite) {
 
 const PencilController = {
 
-  pencil: new Pencil(40000),
+  pencil: new Pencil(40000, 5),
 
   newPencil() {
-    this.pencil = new Pencil(40000);
+    this.pencil = new Pencil(40000, 5);
   },
 
   write(paper, textToWrite) {
@@ -62,6 +62,10 @@ const PencilController = {
     }
     newPaper = paper + writeableText;
     return newPaper;
+  },
+
+  sharpen() {
+    return this.pencil.sharpen();
   },
 };
 
