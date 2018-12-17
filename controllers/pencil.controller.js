@@ -39,7 +39,7 @@ const PencilController = {
 
   write(paper, textToWrite) {
     if (this.pencil.point <= 0) {
-      return paper;
+      return paper || '';
     }
     const {
       writeableText,
