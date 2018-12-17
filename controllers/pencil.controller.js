@@ -69,9 +69,12 @@ const PencilController = {
   },
 
   erase(paper, textToErase) {
+    if (typeof paper !== 'string') {
+      return '';
+    }
     const index = paper.lastIndexOf(textToErase);
-    if (index < 0) {
-      return paper || '';
+    if (index < 0 || typeof textToErase !== 'string') {
+      return paper;
     }
     const spacesToReplaceText = ' '.repeat(textToErase.length);
     const newPaper = paper.substr(0, index) + spacesToReplaceText
