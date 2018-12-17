@@ -67,6 +67,14 @@ const PencilController = {
   sharpen() {
     return this.pencil.sharpen();
   },
+
+  erase(paper, textToErase) {
+    const index = paper.lastIndexOf(textToErase);
+    const spacesToReplaceText = ' '.repeat(textToErase.length);
+    const newPaper = paper.substr(0, index) + spacesToReplaceText
+      + paper.substr(index + spacesToReplaceText.length);
+    return newPaper;
+  },
 };
 
 module.exports = PencilController;
